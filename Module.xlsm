@@ -1,0 +1,21 @@
+Sub ExtractHyperlinks()
+    Dim ws As Worksheet
+    Dim sourceRange As Range
+    Dim targetRange As Range
+    Dim cell As Range
+    Dim targetCell As Range
+    
+    Set ws = ThisWorkbook.Sheets("Sheet1") ' Change "Sheet1" to your sheet name
+    
+    Set sourceRange = ws.Range("B2:N19")
+    
+    Set targetRange = ws.Range("Q2")
+    
+    For Each cell In sourceRange
+        If cell.Hyperlinks.Count > 0 Then
+            Set targetCell = targetRange.Offset(cell.Row - sourceRange.Row, cell.Column - sourceRange.Column)
+            targetCell.Value = cell.Hyperlinks(1).Address
+        End If
+    Next cell
+End Sub
+
