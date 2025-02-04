@@ -84,4 +84,65 @@ Sub ExtractHyperlinks()
     MsgBox "Hyperlink extraction complete!", vbInformation
 End Sub
 
+Sub ReplaceGoogleDriveLinks()
+    Dim ws As Worksheet
+    Dim sourceRange As Range
+    Dim cell As Range
+    
+    Set ws = ThisWorkbook.Sheets("Sheet1") ' Change "Sheet1" to your sheet name
+    
+    ' Let user select the source range
+    On Error Resume Next
+    Set sourceRange = Application.InputBox("Select the range containing Google Drive links:", Type:=8)
+    If sourceRange Is Nothing Then Exit Sub
+    On Error GoTo 0
+    
+    ' Replace text in each cell
+    For Each cell In sourceRange
+        If Not IsEmpty(cell.Value) And IsNumeric(cell.Value) = False Then
+            cell.Value = Replace(cell.Value, "https://drive.google.com/open?id=", "https://drive.google.com/embeddedfolderview?id=")
+            cell.Value = Replace(cell.Value, "&usp=drive_copy", "#list")
+        End If
+    Next cell
+    
+    MsgBox "Replacement complete!", vbInformation
+End Sub
+
+Sub BuildTextDataset()
+    Dim ws As Worksheet
+    Dim sourceRange As Range
+    Dim cell As Range
+    
+    Set ws = ThisWorkbook.Sheets("Sheet1") ' Change "Sheet1" to your sheet name
+    
+    ' Let user select the source range
+    On Error Resume Next
+    Set sourceRange = Application.InputBox("Select the range to process:", Type:=8)
+    If sourceRange Is Nothing Then Exit Sub
+    On Error GoTo 0
+    
+    ' Step 1: Replace blank cells with "n/a"
+    For Each cell In sourceRange
+        If Trim(cell.Value) = "" Then
+            cell.Value = "n/a"
+        End If
+    Next cell
+    
+    ' Step 2: Find and clear all cells containing "https"
+    For Each cell In sourceRange
+        If InStr(cell.Value, "https") > 0 Then
+            cell.ClearContents
+        End If
+    Next cell
+    
+    ' Step 3: Replace remaining blank cells with "Final Exam"
+    For Each cell In sourceRange
+        If Trim(cell.Value) = "" Then
+            cell.Value = "Final Exam"
+        End If
+    Next cell
+    
+    MsgBox "Dataset processing complete!", vbInformation
+End Sub
+
 
