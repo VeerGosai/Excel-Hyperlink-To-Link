@@ -1,4 +1,4 @@
-Sub SortColumns()
+Sub A_SortColumns()
     Dim ws As Worksheet
     Dim lastCol As String
     Dim lastColNum As Integer
@@ -25,7 +25,7 @@ Sub SortColumns()
 End Sub
 
 
-Sub RemoveDuplicatesColumns()
+Sub B_RemoveDuplicatesColumns()
     Dim ws As Worksheet
     Dim lastCol As String
     Dim lastColNum As Integer
@@ -52,7 +52,7 @@ Sub RemoveDuplicatesColumns()
 End Sub
 
 
-Sub ExtractHyperlinks()
+Sub C_ExtractHyperlinks()
     Dim ws As Worksheet
     Dim sourceRange As Range
     Dim targetRange As Range
@@ -84,7 +84,7 @@ Sub ExtractHyperlinks()
     MsgBox "Hyperlink extraction complete!", vbInformation
 End Sub
 
-Sub ReplaceGoogleDriveLinks()
+Sub D_ReplaceGoogleDriveLinks()
     Dim ws As Worksheet
     Dim sourceRange As Range
     Dim cell As Range
@@ -108,7 +108,7 @@ Sub ReplaceGoogleDriveLinks()
     MsgBox "Replacement complete!", vbInformation
 End Sub
 
-Sub BuildTextDataset()
+Sub E_BuildTextDataset()
     Dim ws As Worksheet
     Dim sourceRange As Range
     Dim cell As Range
